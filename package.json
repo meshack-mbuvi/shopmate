@@ -1,0 +1,68 @@
+{
+  "name": "e-commerce",
+  "version": "1.0.0",
+  "description": "## Project Overview",
+  "main": "index.js",
+  "scripts": {
+    "test": "cd client && npm test",
+    "client": "cd client && nodemon start",
+    "server": "cd server && npm start",
+    "heroku-postbuild": "npm --prefix server run installDep && npm --prefix client run installDep",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meshack-mbuvi/politico-node.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meshack-mbuvi/politico-node/issues"
+  },
+  "homepage": "https://github.com/meshack-mbuvi/politico-node#readme",
+  "devDependencies": {
+    "@types/cors": "^2.8.4",
+    "react": "^16.7.0",
+    "sequelize-cli": "^5.4.0",
+    "@babel/plugin-proposal-class-properties": "^7.2.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/preset-typescript": "^7.1.0",
+    "coveralls": "^3.0.2",
+    "redux-devtools-extension": "^2.13.7",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.2"
+  },
+  "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.2.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/preset-typescript": "^7.1.0",
+    "@types/cors": "^2.8.4",
+    "@types/node": "^11.9.4",
+    "@types/react": "^16.8.2",
+    "@types/react-dom": "^16.8.0",
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.0.1",
+    "coveralls": "^3.0.2",
+    "express": "^4.16.4",
+    "jquery": "^3.3.1",
+    "mysql": "^2.16.0",
+    "nodemon": "^1.18.9",
+    "pg": "^7.8.0",
+    "popper.js": "^1.14.6",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-scripts": "^2.1.2",
+    "redux-devtools-extension": "^2.13.7",
+    "reflect-metadata": "^0.1.13",
+    "sequelize-cli": "^5.4.0",
+    "ts-node": "^7.0.1",
+    "typeorm": "^0.2.13",
+    "typescript": "^3.2.2"
+  },
+  "engines": {
+    "node": "8.x"
+  }
+}
