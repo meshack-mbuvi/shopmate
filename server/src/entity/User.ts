@@ -7,7 +7,7 @@ export type UserId = number;
 export class User {
   @PrimaryGeneratedColumn() customer_id: UserId;
 
-  @Column({ length: 50 })
+  @Column({ type: "text" })
   name: string;
 
   @Column({ length: 100, unique: true })
