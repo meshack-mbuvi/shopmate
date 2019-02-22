@@ -1,7 +1,14 @@
 body {
+<<<<<<< HEAD
     margin: 2px;
     padding: 0;
     font-family: sans-serif;
+=======
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: #E6ECF0;
+>>>>>>> Add more entities
 }
 
 .content {
@@ -20,6 +27,13 @@ body {
     flex-direction: row;
 }
 
+<<<<<<< HEAD
+=======
+.text-muted:hover {
+    text-decoration: none;
+}
+
+>>>>>>> Add more entities
 .btn-primary,
 .btn-primary:hover {
     background-color: #91D2FA !important;
@@ -30,6 +44,7 @@ a:hover,
 .stats {
     color: #91D2FA;
     text-decoration: none
+<<<<<<< HEAD
 }
 
 .navbar-brand {
@@ -43,4 +58,6 @@ a:hover,
 
 .homeImg {
     height: 50% !important;
+=======
+>>>>>>> Add more entities
 }
