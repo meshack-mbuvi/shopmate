@@ -1,10 +1,21 @@
 {
-  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier", "tslint-config-standard"],
   "linterOptions": {
     "exclude": [
       "config/**/*.js",
       "node_modules/**/*.ts",
       "coverage/lcov-report/*.js"
     ]
-  }
+  },
+  "ordered-imports": [true, {
+    "grouped-imports": true,
+    "import-sources-order": "case-insensitive",
+    "named-imports-order": "case-insensitive",
+  }],
+  "sort-imports": ["error", {
+    "ignoreCase": false,
+    "ignoreDeclarationSort": false,
+    "ignoreMemberSort": false,
+    "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+  }]
 }
