@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { getRepository } from "typeorm";
 
 import { User } from "../entity/User";
 import { Validator } from "../validation/validator";
@@ -10,8 +11,8 @@ export class UserController {
   UserRepository: any;
   validator: any;
 
-  constructor(connection: any) {
-    this.UserRepository = connection.getRepository(User);
+  constructor() {
+    this.UserRepository = getRepository(User);
     this.validator = new Validator();
   }
 
@@ -60,10 +61,11 @@ export class UserController {
         shipping_region_id,
         day_phone,
         eve_phone,
-        mob_phone
+        mob_phone,
+        isAdmin
       } = req.body;
 
-      const data_to_validate = {
+      const dataToValidate = {
         name: name,
         email: email,
         password: password,
@@ -80,17 +82,19 @@ export class UserController {
         mob_phone: mob_phone
       };
 
-      let valid = this.validator.validate(data_to_validate);
+      let valid = this.validator.validate(dataToValidate);
+
       if (!valid) {
         return res.status(400).send({ message: "Input data should not be empty" });
       }
+
       const user = await new User();
 
       const passwordHash = bcrypt.hashSync(user.password, 10);
 
       user.name = name;
       user.email = email;
-      user.credit_card = credit_card;
+      user.creditCard = credit_card;
       user.password = passwordHash;
       user.address_1 = address_1;
       user.address_2 = address_2;
@@ -102,6 +106,7 @@ export class UserController {
       user.day_phone = day_phone;
       user.eve_phone = eve_phone;
       user.mob_phone = mob_phone;
+      user.isAdmin = isAdmin || false;
 
       let results = await this.UserRepository.save(user);
       delete results.password;
@@ -116,13 +121,27 @@ export class UserController {
 
   public async update(req: Request, res: Response) {
     try {
-      const { first_name, last_name, type, phone } = req.body;
-      const data_to_validate = {
-        first_name: first_name,
-        last_name: last_name,
-        type: type,
-        phone: phone
+      const { name, email, phone, password, creditCard, address_1, address_2, city, region, postal_code, country } = req.body;
+
+      const dataToValidate = {
+        name: name,
+        phone: phone,
+        email: email,
+        password: password,
+        creditCard: creditCard,
+        address_1: address_1,
+        address_2: address_2,
+        city: city,
+        region: region,
+        postal_code: postal_code,
+        country: country
       };
+
+      let valid = this.validator.validate(dataToValidate);
+
+      if (!valid) {
+        return res.status(400).send({ message: "Input data should not be empty" });
+      }
 
       let user = await this.UserRepository.findOne(req.params.id);
 
@@ -130,20 +149,7 @@ export class UserController {
         return res.status(404).send({ message: "User not found" });
       }
 
-      let valid = this.validator.validate(data_to_validate);
-
-      if (!valid) {
-        return res.status(400).send({ message: "Input data should not be empty" });
-      }
-
-      if (type === "voter" || type === "candidate" || type === "admin") {
-        user.type = type;
-      } else {
-        user.type = "voter";
-      }
-
-      user.first_name = first_name;
-      user.last_name = last_name;
+      user.name = name;
       user.phone = phone;
 
       let results = await this.UserRepository.save(user);

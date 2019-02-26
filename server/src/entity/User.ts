@@ -1,11 +1,9 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
-export type UserType = "voter" | "candidate" | "admin";
-export type UserId = number;
-
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn() customer_id: UserId;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column({ type: "text" })
   name: string;
@@ -13,10 +11,11 @@ export class User {
   @Column({ length: 100, unique: true })
   email: string;
 
-  @Column("text") password: string;
+  @Column("text")
+  password: string;
 
-  @Column({ length: 15, unique: true })
-  credit_card: string;
+  @Column({ name: "credit_card", length: 15, unique: true })
+  creditCard: string;
 
   @Column("text")
   address_1: string;
@@ -44,6 +43,10 @@ export class User {
 
   @Column()
   eve_phone: string;
+
   @Column()
   mob_phone: string;
+
+  @Column({ name: "is_admin", default: false })
+  isAdmin: boolean;
 }

@@ -10,13 +10,13 @@ export class Order {
   @Column({ name: "shipping_id", type: "int" })
   shippingId: number;
 
-  @Column({ type: "double", name: "total_amount", default: 0.0, nullable: false })
+  @Column({ type: "numeric", name: "total_amount", default: 0.0, nullable: false })
   totalAmount: number;
 
-  @Column({ nullable: false, type: "datetime", name: "created_on" })
+  @Column({ nullable: false, type: "timestamp", name: "created_on" })
   createdOn: Date;
 
-  @Column({ nullable: false, type: "datetime", name: "shipped_on" })
+  @Column({ nullable: false, type: "timestamp", name: "shipped_on" })
   shippedOn: Date;
 
   @Column({ type: "int", nullable: false, default: 0 })
@@ -46,19 +46,17 @@ export class OrderDetail {
   @OneToOne(type => Order, order => order.customer, { nullable: false })
   orderId: Order;
 
-  @Column({ name: "product_id", type: "int", nullable: false })
-  productId: number;
-
   @Column({ type: "text", nullable: false })
   attributes: string;
 
   @OneToOne(type => Product, product => product.name, { nullable: false })
+  @JoinColumn({ referencedColumnName: "name" })
   product: Product;
 
   @Column({ type: "int", nullable: false })
   quantity: number;
 
   @OneToOne(type => Product, product => product.price, { nullable: false })
-  @JoinColumn({ name: "unit_cost", referencedColumnName: "price" })
+  @JoinColumn({ name: "unit_cost", referencedColumnName: "id" })
   unitCost: number;
 }

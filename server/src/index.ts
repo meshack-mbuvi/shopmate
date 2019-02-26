@@ -16,11 +16,11 @@ app.use(cors());
 createConnection().then(async connection => {
   Routes.forEach(route => {
     app[route.method](route.route, async (req: Request, res: Response) => {
-      const controller = new route.controller(connection);
+      const controller = new route.controller();
       try {
         return await controller[route.action](req, res);
       } catch (error) {
-        return error;
+        return res.send(error);
       }
     });
   });

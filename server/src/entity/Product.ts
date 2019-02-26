@@ -1,17 +1,13 @@
-import { AttributeValue } from "./Attribute";
-import { Column, Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { Category } from "./Category";
+import { AttributeValue } from "./Attribute";
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany, ManyToMany, JoinTable } from "typeorm";
 
-@Entity({ engine: "MyISAM" })
+@Entity()
 export class Product {
-  @PrimaryGeneratedColumn({ name: "product_id" })
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(type => Category, category => category.name)
-  @JoinColumn({ name: "category" })
-  category: Category;
-
-  @Column({ type: "text", nullable: false })
+  @Column({ name: "name", nullable: false, length: 100, unique: true })
   name: string;
 
   @Column({ type: "text", nullable: false })
@@ -20,7 +16,7 @@ export class Product {
   @Column({ type: "decimal", nullable: false })
   price: number;
 
-  @Column({ type: "double", default: 0.0, name: "discounted_price" })
+  @Column({ type: "decimal", default: 0.0, name: "discounted_price" })
   discountedPrice: number;
 
   @Column()
@@ -35,11 +31,24 @@ export class Product {
   @Column({ nullable: false, default: 0 })
   display: number;
 
-  @OneToMany(
-    type => AttributeValue,
-    attribute => {
-      attribute.attribute, attribute.value;
-    }
-  )
+  @OneToMany(type => AttributeValue, attribute => attribute.value)
   attributes: AttributeValue[];
+
+  @ManyToMany(type => Category)
+  @JoinTable({
+    name: "product_category",
+    joinColumns: [
+      {
+        name: "product_id",
+        referencedColumnName: "id"
+      }
+    ],
+    inverseJoinColumns: [
+      {
+        name: "category_id",
+        referencedColumnName: "id"
+      }
+    ]
+  })
+  category: Category;
 }

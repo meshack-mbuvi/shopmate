@@ -6,8 +6,8 @@ export class ShoppingCart {
   @PrimaryGeneratedColumn({ name: "item_id" })
   itemId: number;
 
-  @Column({ length: 32, nullable: false, name: "cart_id" })
-  cartId: string;
+  @Column({ length: 32, nullable: false, name: "card_id" })
+  cardId: string;
 
   @OneToMany(type => Product, product => product.name)
   product: Product;
@@ -21,6 +21,6 @@ export class ShoppingCart {
   @Column({ nullable: false, default: true, name: "buy_now" })
   buyNow: boolean;
 
-  @Column({ nullable: false, type: "datetime", name: "added_on" })
+  @Column({ nullable: false, type: "timestamp", name: "added_on" })
   addedOn: Date;
 }

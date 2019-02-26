@@ -1,5 +1,4 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
-
 @Entity({ engine: "MyISAM" })
 export class Attribute {
   @PrimaryGeneratedColumn()

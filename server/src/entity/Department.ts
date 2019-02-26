@@ -1,17 +1,17 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import { Category } from "./Category";
 
-@Entity({ engine: "MyISAM" })
+@Entity()
 export class Department {
-  @PrimaryGeneratedColumn({ name: "department_id" })
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: "text", nullable: false })
+  @Column({ name: "name", nullable: false, length: 100, unique: true })
   name: string;
 
   @Column("text")
   description: string;
 
-  @ManyToMany(type => Category, category => category.name)
+  @OneToMany(type => Category, category => category.department)
   categories: Category[];
 }
