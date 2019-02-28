@@ -1,4 +1,4 @@
-## Politico node app
+## shopmate
 
 ## Project Overview
 
